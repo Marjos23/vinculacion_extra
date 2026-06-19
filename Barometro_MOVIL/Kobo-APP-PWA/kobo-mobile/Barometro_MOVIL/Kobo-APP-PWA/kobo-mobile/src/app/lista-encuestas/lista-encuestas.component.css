@@ -1,0 +1,94 @@
+.lista-container {
+  padding: 15px;
+  background-color: #f8f9fa;
+  flex: 1;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 2px solid #00796b;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.top-bar h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.btn-back {
+  text-decoration: none;
+  color: #00796b;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border: 1px solid #00796b;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.btn-back:active {
+  background-color: #e0f2f1;
+}
+
+.instrucciones {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.encuestas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.encuesta-card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.encuesta-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.encuesta-icon {
+  font-size: 1.8rem;
+}
+
+.encuesta-detalles h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.encuesta-detalles p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.btn-llenar {
+  text-decoration: none;
+  background-color: #00796b;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.btn-llenar:active {
+  background-color: #004d40;
+}

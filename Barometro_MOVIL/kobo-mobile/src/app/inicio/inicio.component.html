@@ -1,40 +1,51 @@
 @if (isOnline) {
   <div class="connection-status online">
     <span class="status-dot"></span> Conectado al servidor central
+    <button class="btn-logout" (click)="cerrarSesion()">🚪 Salir</button>
   </div>
 } @else {
   <div class="connection-status offline" style="background-color: #ffebee; color: #c62828; border-bottom: 2px solid #c62828; padding: 10px; font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 8px;">
     <span class="status-dot" style="background-color: #c62828; width: 8px; height: 8px; border-radius: 50%; display: inline-block;"></span> 🔴 Modo Offline - Guardando datos localmente
+    <button class="btn-logout" (click)="cerrarSesion()">🚪 Salir</button>
   </div>
 }
-<div class="menu-grid">
-  <a routerLink="/lista" class="menu-card-link">
-    <div class="menu-card">
-      <div class="card-icon">📝</div>
-      <div class="card-text">
-        <h3>Llenar formulario</h3>
-        <p>Ingresar datos para una encuesta disponible</p>
-      </div>
-    </div>
+
+<div class="kobo-menu">
+
+  <a routerLink="/lista" class="btn-nuevo-formulario">
+    <span class="icono-mas">+</span> Llenar nuevo formulario
   </a>
 
-  <div class="menu-card" 
-       [class.disabled]="cantidadListos === 0" 
-       (click)="enviarFormulariosAlServidor()">
-    <div class="card-icon">📤</div>
-    <div class="card-text">
-      <h3>Enviar formulario guardado</h3>
-      <p>{{ cantidadListos }} formularios listos para enviar</p>
-    </div>
+  <div class="opciones-lista">
+
+    <button type="button" class="opcion-item" (click)="abrirSeccion('Borradores')">
+      <span class="opcion-icono">✏️</span>
+      <span class="opcion-texto">Borradores</span>
+    </button>
+
+    <button type="button" class="opcion-item" (click)="abrirSeccion('Listo para enviar')">
+      <span class="opcion-icono">📨</span>
+      <span class="opcion-texto">Listo para enviar</span>
+    </button>
+
+    <button type="button" class="opcion-item" (click)="abrirSeccion('Enviado')">
+      <span class="opcion-icono">✅</span>
+      <span class="opcion-texto">Enviado</span>
+    </button>
+
+    <button type="button" class="opcion-item" (click)="abrirSeccion('Descargar formulario')">
+      <span class="opcion-icono">⬇️</span>
+      <span class="opcion-texto">Descargar formulario</span>
+    </button>
+
+    <button type="button" class="opcion-item peligro" (click)="abrirSeccion('Borrar formulario')">
+      <span class="opcion-icono">🗑️</span>
+      <span class="opcion-texto">Borrar formulario</span>
+    </button>
+
   </div>
 
-  <div class="menu-card" (click)="sincronizarFormularios()">
-    <div class="card-icon">🔄</div>
-    <div class="card-text">
-      <h3>Obtener formulario en blanco</h3>
-      <p>Sincronizar nuevas encuestas del servidor</p>
-    </div>
-  </div>
+  <p class="version-app">KoboCollect v1.0.0 (Proyecto Integrador)</p>
 </div>
 
 @if (cargando) {
@@ -51,28 +62,7 @@
 @if (enviando) {
   <div class="modal-overlay">
     <div class="modal-box">
-      <div class="spinner" style="border-top-color: #1565c0;"></div>
-      <h3 style="color: #1565c0;">Subiendo datos...</h3>
-      <p>Enviando formularios recolectados al servidor central.</p>
-    </div>
-  </div>
-}
-
-@if (mensajeExito) {
-  <div class="modal-overlay">
-    <div class="modal-box">
-      <span class="close-modal" (click)="mensajeExito = false">✕</span>
-      <div class="success-icon">✔</div>
-      <h3>¡Acción Exitosa!</h3>
-      <p>{{ textoExito }}</p>
-    </div>
-  </div>
-}
-@if (enviando) {
-  <div class="modal-overlay">
-    <div class="modal-box">
       <span class="close-modal" (click)="enviando = false">✕</span>
-      
       <div class="spinner" style="border-top-color: #1565c0;"></div>
       <h3 style="color: #1565c0;">Subiendo datos...</h3>
       <p>Enviando formularios recolectados al servidor central.</p>

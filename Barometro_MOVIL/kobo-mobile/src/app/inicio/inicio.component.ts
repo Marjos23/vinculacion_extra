@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../storage.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-inicio',
@@ -13,14 +14,18 @@ export class InicioComponent implements OnInit, OnDestroy {
   cargando: boolean = false;
   mensajeExito: boolean = false;
   textoExito: string = '';
-  
+
   enviando: boolean = false;
   cantidadListos: number = 0;
 
   // NUEVA VARIABLE: Guarda si el usuario tiene internet o no
   isOnline: boolean = true;
 
-  constructor(private storage: StorageService) {}
+  constructor(
+    private storage: StorageService,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.cantidadListos = this.storage.obtenerCantidad();
@@ -43,6 +48,13 @@ export class InicioComponent implements OnInit, OnDestroy {
   actualizarEstadoRed = () => {
     this.isOnline = navigator.onLine;
   };
+
+  // TODO: Por ahora cada opción solo muestra un aviso.
+  // Cuando implementemos cada pantalla (Borradores, Listo para enviar, etc.)
+  // esto se cambiará por this.router.navigate(['/borradores']) y similares.
+  abrirSeccion(nombre: string) {
+    alert(`Sección "${nombre}" — próximamente disponible.`);
+  }
 
   sincronizarFormularios() {
     // Si no hay internet, no permitimos sincronizar formularios nuevos
@@ -76,9 +88,14 @@ export class InicioComponent implements OnInit, OnDestroy {
       this.enviando = false;
       this.storage.limpiarFormularios();
       this.cantidadListos = 0;
-      
+
       this.textoExito = '¡Todos los formularios se subieron al servidor con éxito!';
       this.mensajeExito = true;
     }, 3000);
+  }
+
+  cerrarSesion() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }
